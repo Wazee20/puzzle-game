@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -31,13 +30,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Prepare app web files
+        run: |
+          mkdir -p www
+          cp index.html style.css script.js manifest.webmanifest app-icon.svg IMG_0910.jpeg IMG_1750.jpeg www/
+
       - name: Add Android platform
         run: npx cap add android
 
       - name: Sync web app
         run: npx cap sync android
 
-      - name: Build debug APK
+      - name: Build installable debug APK
         run: cd android && ./gradlew assembleDebug
 
       - name: Upload APK
