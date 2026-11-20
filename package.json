@@ -1,0 +1,1 @@
+{"scripts":{"android:sync":"npx cap sync android","android:build":"npm run android:sync && cd android && ./gradlew assembleRelease","android:debug":"npm run android:sync && cd android && ./gradlew assembleDebug"},"dependencies":{"@capacitor/android":"^7.4.3","@capacitor/core":"^7.4.3"},"devDependencies":{"@capacitor/cli":"^7.4.3"}}
