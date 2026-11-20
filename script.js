@@ -3,6 +3,7 @@ const imageSelect = document.getElementById("imageSelect");
 const difficulty = document.getElementById("difficulty");
 const startButton = document.getElementById("startButton");
 const shuffleButton = document.getElementById("shuffleButton");
+const installButton = document.getElementById("installButton");
 const movesElement = document.getElementById("moves");
 const timeElement = document.getElementById("time");
 const message = document.getElementById("message");
@@ -14,6 +15,7 @@ let moves = 0;
 let seconds = 0;
 let timer = null;
 let playing = false;
+let installPrompt = null;
 
 function formatTime(value) {
   const minutes = Math.floor(value / 60);
@@ -125,7 +127,35 @@ imageSelect.addEventListener("change", () => {
 
 difficulty.addEventListener("change", startGame);
 
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  installPrompt = event;
+  installButton.hidden = false;
+});
+
+installButton.addEventListener("click", async () => {
+  if (!installPrompt) return;
+  installPrompt.prompt();
+  await installPrompt.userChoice;
+  installPrompt = null;
+  installButton.hidden = true;
+});
+
+window.addEventListener("appinstalled", () => {
+  installButton.hidden = true;
+  installPrompt = null;
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch((error) => {
+      console.error("تعذر تسجيل Service Worker:", error);
+    });
+  });
+}
+
 shuffleButton.disabled = true;
+installButton.hidden = true;
 size = Number(difficulty.value);
 tiles = Array.from({ length: size * size }, (_, index) => index);
 render();
