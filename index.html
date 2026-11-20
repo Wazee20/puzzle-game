@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لعبة تركيب الصور</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <h1>تركيب الصور</h1>
+
+    <section class="controls">
+      <label>الصورة
+        <select id="imageSelect">
+          <option value="IMG_0910.jpeg">الصورة الأولى</option>
+          <option value="IMG_1750.jpeg">الصورة الثانية</option>
+        </select>
+      </label>
+
+      <label>الصعوبة
+        <select id="difficulty">
+          <option value="3">سهل — 3×3</option>
+          <option value="4" selected>متوسط — 4×4</option>
+          <option value="5">صعب — 5×5</option>
+        </select>
+      </label>
+
+      <button id="startButton" type="button">بدء اللعبة</button>
+      <button id="shuffleButton" type="button">إعادة ترتيب</button>
+    </section>
+
+    <section class="stats" aria-live="polite">
+      <span>الحركات: <strong id="moves">0</strong></span>
+      <span>الوقت: <strong id="time">0:00</strong></span>
+    </section>
+
+    <div id="board" class="board" aria-label="لوحة تركيب الصورة"></div>
+    <p id="message" class="message"></p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
